@@ -8,6 +8,8 @@ This repository contains **no app code, binaries or web builds**. It is only a l
 links. It is **unofficial** and **not affiliated with, sponsored or endorsed by the ArtCraft Team**
 (see [Trademarks](#trademarks)).
 
+https://egegurkan.github.io/ArtCraft/
+
 ## How it works
 
 - `index.html` is a self-contained static page that can be hosted on GitHub Pages.
