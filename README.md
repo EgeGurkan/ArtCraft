@@ -1,6 +1,6 @@
 # Craft Apps — unofficial web launcher
 
-A single static page (`index.html`) that lists the open-source "Craft" apps and opens their **web (WebAssembly) builds from a server you run yourself**, for example a home PC that is only reachable over a private network such as [Tailscale](https://tailscale.com/).
+A single-file web page (`index.html`) that loads the list of open-source "Craft" apps at runtime and opens their **web (WebAssembly) builds from a server you run yourself**, for example a home PC that is only reachable over a private network such as [Tailscale](https://tailscale.com/).
 
 This repository contains **no app code, binaries or web builds**. It is only a launcher page with links. It is **unofficial** and **not affiliated with, sponsored or endorsed by the ArtCraft Team** (see [Trademarks](#trademarks)).
 
@@ -8,7 +8,7 @@ This repository contains **no app code, binaries or web builds**. It is only a l
 
 ## How it works
 
-- `index.html` is a self-contained static page that can be hosted on GitHub Pages.
+- `index.html` is a static file (no server-side code), so it can be hosted on GitHub Pages; the app list is not in the file but is loaded when the page opens (see below).
 - Every app card shows an **Open** button. It opens `<server>/<app-id>/` — the web build of that app served by **your own server**.
 - **The server address is not stored in this repository.** It is given once in the link you share privately, and the page then remembers it in that browser (`localStorage`) and removes it from the address bar:\
   https://\<user\>.github.io/\<repository\>/?server=https://\<machine\>.\<tailnet\>.ts.net/\<path\>/\
