@@ -14,7 +14,11 @@ This repository contains **no app code, binaries or web builds**. It is only a l
   https://\<user\>.github.io/\<repository\>/?server=https://\<machine\>.\<tailnet\>.ts.net/\<path\>/\
   If no address is known, the page asks for it the first time someone presses **Open**.
 - Only people who can reach your server (for example members of your tailnet, or people you shared the machine with) can open the apps. Everyone else can see the page, but the apps will not load.
-- App names, descriptions, feature lists, versions and colors are a snapshot of the public, signed ArtCraft Launcher catalog taken when the page was generated. Descriptions are in English as published; the interface can be switched between English and Turkish.
+- **`index.html` contains no app list.** The list is loaded live every time the page opens, so this page always matches the launcher page on your server (the only difference is that it has no refresh button):
+    1. From your server: `<server>/data.json`, the same data your server's own launcher page uses (installed apps, versions, update dates). New apps and new versions installed on the server appear here automatically.
+    2. If the server cannot be reached: the official, signed catalog from `getartcraft.com` (`launcher-catalog.toml`, verified in the browser with the ArtCraft Launcher's pinned Ed25519 key). Every app in it is shown as installed with an **Open** button; versions are not shown, because the catalog has none.
+    3. If neither can be reached: the page stays empty. The list is never stored in the repository or in the browser.
+- Everything loaded is validated (ids, repositories, `https://` links, icon and screenshot addresses) before it is shown. Descriptions are in English as published; the interface can be switched between English and Turkish.
 
 ## Using it
 
@@ -26,14 +30,16 @@ Only `https://` addresses (and `http://localhost` / `http://127.0.0.1` for local
 
 ### Server side (not part of this repository)
 
-The page expects each app's official web build to be served at `<server>/<app-id>/`, for example `<server>/photocraft/`. App ids are the lower-case names used by the publishers (`photocraft`, `vectorcraft`, `craft-anything`, …). How you host them is up to you; use the publishers' official releases and follow each app's `HOSTING.md` (MIME types, compression, HTTPS).
+The page expects each app's official web build to be served at `<server>/<app-id>/`, for example `<server>/photocraft/`, and the app list at `<server>/data.json` (readable from `https://*.github.io` pages via CORS). App ids are the lower-case names used by the publishers (`photocraft`, `vectorcraft`, `craft-anything`, …). How you host them is up to you; use the publishers' official releases and follow each app's `HOSTING.md` (MIME types, compression, HTTPS).
 
 ## Privacy
 
 - No analytics, cookies, trackers or accounts. The page has no backend.
 - Stored only in the visitor's own browser (`localStorage`): the server address, theme, language, sort order, card/table view and hidden apps.
-- Requests made by the page to third parties (like any web page, these hosts can see the visitor's IP address; no referrer is sent):
-    - app icons and the browser tab icon from `getartcraft.com`,
+- Requests made by the page (no referrer is sent):
+    - the app list from **your own server** (`data.json`). Because the server is on a private network, some browsers (for example Chrome) may ask the visitor once to allow this page to access devices on the local network; if it is denied, the page falls back to the official catalog.
+- Requests to third parties (like any web page, these hosts can see the visitor's IP address):
+    - the signed app catalog, app icons and the browser tab icon from `getartcraft.com`,
     - screenshots on the app detail pages from `raw.githubusercontent.com` (`storytold/craft-launcher-assets`),
     - fonts are the system's own; nothing else is loaded.
 - Projects and files created in the apps stay in the visitor's browser storage on the visitor's device; nothing is uploaded by this page.
