@@ -77,7 +77,7 @@ The code written for this page is released under the **MIT License**; the same t
 ```
 MIT License
 
-Copyright (c) 2026 the Byte Office contributors
+Copyright (c) 2026 the Byte Office Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
