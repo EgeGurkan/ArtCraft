@@ -1,10 +1,10 @@
-# Craft Apps — unofficial web launcher
+# Byte Office — unofficial web launcher for the Craft apps
 
-A single-file web page (`index.html`) that loads the list of open-source "Craft" apps at runtime and opens their **web (WebAssembly) builds from a server you run yourself**, for example a home PC that is only reachable over a private network such as [Tailscale](https://tailscale.com/).
+**Byte Office** is a single-file web page (`index.html`) that loads the list of open-source "Craft" apps at runtime and opens their **web (WebAssembly) builds from a server you run yourself**, for example a home PC that is only reachable over a private network such as [Tailscale](https://tailscale.com/).
 
-This repository contains **no app code, binaries or web builds**. It is only a launcher page with links. It is **unofficial** and **not affiliated with, sponsored or endorsed by the ArtCraft Team** (see [Trademarks](#trademarks)).
+This repository contains **no app code, binaries or web builds**. It is only a launcher page with links. It is **unofficial** and **not affiliated with, sponsored or endorsed by the ArtCraft Team** (see [Trademarks](#trademarks)). The page itself says so in its header ("Unofficial Craft App Suite") and footer.
 
-[https://egegurkan.github.io/ArtCraft/](https://egegurkan.github.io/ArtCraft/)
+[https://egegurkan.github.io/ByteOffice/](https://egegurkan.github.io/ByteOffice/)
 
 ## How it works
 
@@ -39,7 +39,7 @@ The page expects each app's official web build to be served at `<server>/<app-id
 - Requests made by the page (no referrer is sent):
     - the app list from **your own server** (`data.json`). Because the server is on a private network, some browsers (for example Chrome) may ask the visitor once to allow this page to access devices on the local network; if it is denied, the page falls back to the official catalog.
 - Requests to third parties (like any web page, these hosts can see the visitor's IP address):
-    - the signed app catalog, app icons and the browser tab icon from `getartcraft.com`,
+    - the signed app catalog and app icons from `getartcraft.com`,
     - screenshots on the app detail pages from `raw.githubusercontent.com` (`storytold/craft-launcher-assets`),
     - fonts are the system's own; nothing else is loaded.
 - Projects and files created in the apps stay in the visitor's browser storage on the visitor's device; nothing is uploaded by this page.
@@ -52,7 +52,7 @@ The page expects each app's official web build to be served at `<server>/<app-id
     - SolidCraft — by Tangency Labs and the SolidCraft contributors ([tangency-labs/solidcraft](https://github.com/tangency-labs/solidcraft)), MIT OR Apache-2.0.
     - MailCraft — by UCS Care Group and the MailCraft contributors ([UCS-Care-Group/mailcraft](https://github.com/UCS-Care-Group/mailcraft)), MIT OR Apache-2.0.
 - **App icons** are loaded at runtime from `getartcraft.com` and are not redistributed in this repository. They belong to their respective owners.
-- **Tab icon:** the ArtCraft mark, loaded at runtime from `getartcraft.com` (the link always follows the icon published there). It is a trademark of the ArtCraft Team; see [Trademarks](#trademarks).
+- **Byte Office icon** (the browser tab icon, embedded in `index.html`): original artwork made for this repository — a pixel "B" drawn on a 4×5 grid of bits. It is released under the MIT License with the rest of this repository's code and is not derived from any ArtCraft mark.
 - **Screenshots** are loaded at runtime from [storytold/craft-launcher-assets](https://github.com/storytold/craft-launcher-assets) and are not redistributed here. Per its `ATTRIBUTION.md`, the app interfaces shown are under each app's own license and the artwork shown is either in the public domain or was made with the apps.
 - **Social icons** (embedded in `index.html`, as used by ArtCraft Launcher):
     - X, YouTube, TikTok, Instagram, Discord, GitHub — [Simple Icons](https://simpleicons.org/), CC0 1.0.
@@ -65,19 +65,19 @@ The page expects each app's official web build to be served at `<server>/<app-id
 "ArtCraft", the ArtCraft wordmark and the ArtCraft mark are trademarks of the ArtCraft Team. They are **not** covered by the open-source licenses of ArtCraft Launcher or the apps (see `docs/brand/LICENSE-brand.txt` in [storytold/craft-launcher](https://github.com/storytold/craft-launcher)).
 
 - This project is **not** ArtCraft Launcher and is **not** made, sponsored, endorsed, certified or supported by the ArtCraft Team.
-- It does **not** use the ArtCraft wordmark. The only ArtCraft mark shown is the browser tab icon, which is loaded unmodified from `getartcraft.com` at runtime (not copied into this repository) to indicate that the listed apps come from the ArtCraft suite. Otherwise the name "ArtCraft" appears only in plain text: to state that this work is based on ArtCraft Launcher, and to identify the publisher of each app on its card.
-- If the ArtCraft Team objects to this use of the mark, it will be removed; please open an issue.
+- It does **not** use the ArtCraft wordmark or the ArtCraft mark. Its name ("Byte Office") and icon are its own. The name "ArtCraft" appears only in plain text: to state that this work is based on ArtCraft Launcher and is not affiliated with the ArtCraft Team (page footer and this file), and to identify the publisher of each app on its card.
+- If the ArtCraft Team objects to any use of its name here, it will be changed; please open an issue.
 - App names (PhotoCraft, VectorCraft, …), their icons and the names and logos of other services are the property of their respective owners and are used only to identify them.
 - If you fork this repository, do not put "ArtCraft" in the name, logo, icon, domain or description of your fork.
 
 ## License
 
-The code written for this page is released under the **MIT License**:
+The code written for this page (and the Byte Office icon) is released under the **MIT License**; the same text is in [`LICENSE`](LICENSE):
 
 ```
 MIT License
 
-Copyright (c) 2026 the contributors of this repository
+Copyright (c) 2026 the Byte Office contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -100,7 +100,7 @@ SOFTWARE.
 
 ### Third-party notices
 
-Parts of `index.html` (the app catalog data and the interface design) are derived from ArtCraft Launcher, used under the MIT License:
+Parts of `index.html` (the app catalog data handling and the interface design) are derived from ArtCraft Launcher, used under the MIT License. This notice is also kept at the top of `index.html`:
 
 ```
 MIT License
