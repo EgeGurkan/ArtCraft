@@ -14,7 +14,7 @@ This repository contains **no app code, binaries or web builds**. It is only a l
   https://\<user\>.github.io/\<repository\>/?server=https://\<machine\>.\<tailnet\>.ts.net/\<path\>/\
   If no address is known, the page asks for it the first time someone presses **Open**.
 - Only people who can reach your server (for example members of your tailnet, or people you shared the machine with) can open the apps. Everyone else can see the page, but the apps will not load.
-- **`index.html` contains no app list.** The list is loaded live every time the page opens, so this page always matches the launcher page on your server:
+- **`index.html`** **contains no app list.** The list is loaded live every time the page opens, so this page always matches the launcher page on your server:
     1. From your server: `<server>/data.json`, the same data your server's own launcher page uses (installed apps, versions, update dates). New apps and new versions installed on the server appear here automatically.
     2. If the server cannot be reached: the official, signed catalog from `getartcraft.com` (`launcher-catalog.toml`, verified in the browser with the ArtCraft Launcher's pinned Ed25519 key). Every app in it is shown as installed with an **Open** button; versions are not shown, because the catalog has none.
     3. If neither can be reached: the page stays empty. The list is never stored in the repository or in the browser.
