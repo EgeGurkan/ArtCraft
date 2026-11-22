@@ -9,14 +9,14 @@ This repository contains **no app code, binaries or web builds**. It is only a l
 ## How it works
 
 - `index.html` is a static file (no server-side code), so it can be hosted on GitHub Pages; the app list is not in the file but is loaded when the page opens (see below).
-- Every app card shows an **Open** button. It opens `<server>/<app-id>/` — the web build of that app served by **your own server**.
-- **The server address is not stored in this repository.** It is given once in the link you share privately, and the page then remembers it in that browser (`localStorage`) and removes it from the address bar:\
+- Until your server has been reached, every app card shows an **Install** button. Pressing it asks for the server address and tries it right away: if the address is right, the list is replaced by your server's list and the apps installed there show **Open**, which opens `<server>/<app-id>/` — the web build of that app served by **your own server**. If the server cannot be reached, the page says so and the buttons stay **Install**.
+- **The server address is not stored in this repository.** It is typed once after pressing **Install**, or given in the link you share privately; the page then remembers it in that browser (`localStorage`) and removes it from the address bar:\
   https://\<user\>.github.io/\<repository\>/?server=https://\<machine\>.\<tailnet\>.ts.net/\<path\>/\
-  If no address is known, the page asks for it the first time someone presses **Open**.
+  On later visits the apps show **Open** straight away whenever the server can be reached.
 - Only people who can reach your server (for example members of your tailnet, or people you shared the machine with) can open the apps. Everyone else can see the page, but the apps will not load.
 - **`index.html`** **contains no app list.** The list is loaded live every time the page opens, so this page always matches the launcher page on your server:
     1. From your server: `<server>/data.json`, the same data your server's own launcher page uses (installed apps, versions, update dates). New apps and new versions installed on the server appear here automatically.
-    2. If the server cannot be reached: the official, signed catalog from `getartcraft.com` (`launcher-catalog.toml`, verified in the browser with the ArtCraft Launcher's pinned Ed25519 key). Every app in it is shown as installed with an **Open** button; versions are not shown, because the catalog has none.
+    2. If the server cannot be reached: the official, signed catalog from `getartcraft.com` (`launcher-catalog.toml`, verified in the browser with the ArtCraft Launcher's pinned Ed25519 key). Every app in it is shown with an **Install** button (see above); versions are not shown, because the catalog has none.
     3. If neither can be reached: the page stays empty. The list is never stored in the repository or in the browser.
 - **Refresh button:** it appears only after the server could be reached (step 1). Pressing it asks your server to check for app updates (`POST <server>/api/update`, progress from `<server>/api/status`); if a new version was installed, the page reloads with the new list.
 - Everything loaded is validated (ids, repositories, `https://` links, icon and screenshot addresses) before it is shown. Descriptions are in English as published; the interface can be switched between English and Turkish.
