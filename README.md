@@ -14,10 +14,11 @@ This repository contains **no app code, binaries or web builds**. It is only a l
   https://\<user\>.github.io/\<repository\>/?server=https://\<machine\>.\<tailnet\>.ts.net/\<path\>/\
   If no address is known, the page asks for it the first time someone presses **Open**.
 - Only people who can reach your server (for example members of your tailnet, or people you shared the machine with) can open the apps. Everyone else can see the page, but the apps will not load.
-- **`index.html` contains no app list.** The list is loaded live every time the page opens, so this page always matches the launcher page on your server (the only difference is that it has no refresh button):
+- **`index.html` contains no app list.** The list is loaded live every time the page opens, so this page always matches the launcher page on your server:
     1. From your server: `<server>/data.json`, the same data your server's own launcher page uses (installed apps, versions, update dates). New apps and new versions installed on the server appear here automatically.
     2. If the server cannot be reached: the official, signed catalog from `getartcraft.com` (`launcher-catalog.toml`, verified in the browser with the ArtCraft Launcher's pinned Ed25519 key). Every app in it is shown as installed with an **Open** button; versions are not shown, because the catalog has none.
     3. If neither can be reached: the page stays empty. The list is never stored in the repository or in the browser.
+- **Refresh button:** it appears only after the server could be reached (step 1). Pressing it asks your server to check for app updates (`POST <server>/api/update`, progress from `<server>/api/status`); if a new version was installed, the page reloads with the new list.
 - Everything loaded is validated (ids, repositories, `https://` links, icon and screenshot addresses) before it is shown. Descriptions are in English as published; the interface can be switched between English and Turkish.
 
 ## Using it
@@ -30,14 +31,14 @@ Only `https://` addresses (and `http://localhost` / `http://127.0.0.1` for local
 
 ### Server side (not part of this repository)
 
-The page expects each app's official web build to be served at `<server>/<app-id>/`, for example `<server>/photocraft/`, and the app list at `<server>/data.json` (readable from `https://*.github.io` pages via CORS). App ids are the lower-case names used by the publishers (`photocraft`, `vectorcraft`, `craft-anything`, …). How you host them is up to you; use the publishers' official releases and follow each app's `HOSTING.md` (MIME types, compression, HTTPS).
+The page expects each app's official web build to be served at `<server>/<app-id>/`, for example `<server>/photocraft/`, the app list at `<server>/data.json` and, optionally, the update endpoints `<server>/api/update` and `<server>/api/status` (all three allowed for `https://*.github.io` pages via CORS; without the endpoints the refresh button just reports that updates are unavailable). App ids are the lower-case names used by the publishers (`photocraft`, `vectorcraft`, `craft-anything`, …). How you host them is up to you; use the publishers' official releases and follow each app's `HOSTING.md` (MIME types, compression, HTTPS).
 
 ## Privacy
 
 - No analytics, cookies, trackers or accounts. The page has no backend.
 - Stored only in the visitor's own browser (`localStorage`): the server address, theme, language, sort order, card/table view and hidden apps.
 - Requests made by the page (no referrer is sent):
-    - the app list from **your own server** (`data.json`). Because the server is on a private network, some browsers (for example Chrome) may ask the visitor once to allow this page to access devices on the local network; if it is denied, the page falls back to the official catalog.
+    - the app list from **your own server** (`data.json`), and the update request when the refresh button is pressed. Because the server is on a private network, some browsers (for example Chrome) may ask the visitor once to allow this page to access devices on the local network; if it is denied, the page falls back to the official catalog.
 - Requests to third parties (like any web page, these hosts can see the visitor's IP address):
     - the signed app catalog and app icons from `getartcraft.com`,
     - screenshots on the app detail pages from `raw.githubusercontent.com` (`storytold/craft-launcher-assets`),
@@ -52,7 +53,6 @@ The page expects each app's official web build to be served at `<server>/<app-id
     - SolidCraft — by Tangency Labs and the SolidCraft contributors ([tangency-labs/solidcraft](https://github.com/tangency-labs/solidcraft)), MIT OR Apache-2.0.
     - MailCraft — by UCS Care Group and the MailCraft contributors ([UCS-Care-Group/mailcraft](https://github.com/UCS-Care-Group/mailcraft)), MIT OR Apache-2.0.
 - **App icons** are loaded at runtime from `getartcraft.com` and are not redistributed in this repository. They belong to their respective owners.
-- **Byte Office icon** (the browser tab icon, embedded in `index.html`): original artwork made for this repository — a pixel "B" drawn on a 4×5 grid of bits. It is released under the MIT License with the rest of this repository's code and is not derived from any ArtCraft mark.
 - **Screenshots** are loaded at runtime from [storytold/craft-launcher-assets](https://github.com/storytold/craft-launcher-assets) and are not redistributed here. Per its `ATTRIBUTION.md`, the app interfaces shown are under each app's own license and the artwork shown is either in the public domain or was made with the apps.
 - **Social icons** (embedded in `index.html`, as used by ArtCraft Launcher):
     - X, YouTube, TikTok, Instagram, Discord, GitHub — [Simple Icons](https://simpleicons.org/), CC0 1.0.
@@ -65,14 +65,14 @@ The page expects each app's official web build to be served at `<server>/<app-id
 "ArtCraft", the ArtCraft wordmark and the ArtCraft mark are trademarks of the ArtCraft Team. They are **not** covered by the open-source licenses of ArtCraft Launcher or the apps (see `docs/brand/LICENSE-brand.txt` in [storytold/craft-launcher](https://github.com/storytold/craft-launcher)).
 
 - This project is **not** ArtCraft Launcher and is **not** made, sponsored, endorsed, certified or supported by the ArtCraft Team.
-- It does **not** use the ArtCraft wordmark or the ArtCraft mark. Its name ("Byte Office") and icon are its own. The name "ArtCraft" appears only in plain text: to state that this work is based on ArtCraft Launcher and is not affiliated with the ArtCraft Team (page footer and this file), and to identify the publisher of each app on its card.
+- It does **not** use the ArtCraft wordmark or the ArtCraft mark. Its name ("Byte Office") is its own and the page has no tab icon. The name "ArtCraft" appears only in plain text: to state that this work is based on ArtCraft Launcher and is not affiliated with the ArtCraft Team (page footer and this file), and to identify the publisher of each app on its card.
 - If the ArtCraft Team objects to any use of its name here, it will be changed; please open an issue.
 - App names (PhotoCraft, VectorCraft, …), their icons and the names and logos of other services are the property of their respective owners and are used only to identify them.
 - If you fork this repository, do not put "ArtCraft" in the name, logo, icon, domain or description of your fork.
 
 ## License
 
-The code written for this page (and the Byte Office icon) is released under the **MIT License**; the same text is in [`LICENSE`](LICENSE):
+The code written for this page is released under the **MIT License**; the same text is in [`LICENSE`](LICENSE):
 
 ```
 MIT License
